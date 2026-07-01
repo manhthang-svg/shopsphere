@@ -11,7 +11,7 @@ public class CookieUtils {
     private boolean cookieSecure;
 
     public static final String REFRESH_TOKEN_COOKIE_NAME = "refreshToken";
-    public static final String REFRESH_TOKEN_COOKIE_PATH = "/api/auth/refresh-token";
+    public static final String REFRESH_TOKEN_COOKIE_PATH = "/api/auth/";
     public static final long REFRESH_TOKEN_COOKIE_MAX_AGE = 7 * 24 * 60 * 60;
 
     public ResponseCookie buildRefreshTokenCookie(String value){
