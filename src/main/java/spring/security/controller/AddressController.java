@@ -7,35 +7,34 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import spring.security.dto.request.AddressRequest;
 import spring.security.dto.response.AddressResponse;
 import spring.security.dto.response.ApiResponse;
-import spring.security.dto.response.UserProfileResponse;
 import spring.security.service.AddressService;
-import spring.security.service.UserService;
 
 @RestController
-@RequestMapping("/api/me")
-@Tag(name = "User", description = "Current user profile APIs")
-public class UserController {
-    private final UserService userService;
-    public UserController(UserService userService) {
-        this.userService = userService;
+@RequestMapping("/api/me/address")
+@Tag(name = "Address", description = "Current user address APIs")
+public class AddressController {
+    private final AddressService addressService;
+
+    public AddressController(AddressService addressService) {
+        this.addressService = addressService;
     }
 
     @Operation(
-            summary = "Get current user profile",
-            description = "Returns the authenticated user's profile and saved addresses.",
+            summary = "Add new address",
+            description = "Creates a new saved address for the authenticated user.",
             security = @SecurityRequirement(name = BEARER_AUTH_SCHEME)
     )
-    @GetMapping
-    public ResponseEntity<ApiResponse<UserProfileResponse>> getProfile() {
+    @PostMapping
+    public ResponseEntity<ApiResponse<AddressResponse>> addNewAddress(@Valid @RequestBody AddressRequest addressRequest) {
         return ResponseEntity.ok(
-               ApiResponse.success(userService.getProfile())
+                ApiResponse.success(addressService.addNewAddress(addressRequest))
         );
     }
 }

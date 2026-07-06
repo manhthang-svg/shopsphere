@@ -1,0 +1,8 @@
+package spring.security.service;
+
+import spring.security.dto.request.AddressRequest;
+import spring.security.dto.response.AddressResponse;
+
+public interface AddressService {
+    AddressResponse addNewAddress(AddressRequest req);
+}
