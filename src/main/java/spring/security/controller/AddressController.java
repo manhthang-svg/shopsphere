@@ -44,5 +44,16 @@ public class AddressController {
         addressService.markAddressAsDefault(id);
         return ResponseEntity.noContent().build();
     }
-
+    @Operation(
+            summary = "update address",
+            description = "update an address",
+            security = @SecurityRequirement(name = BEARER_AUTH_SCHEME)
+    )
+    @PutMapping("/{id}")
+    public ResponseEntity<ApiResponse<AddressResponse>> updateAddress(@PathVariable long id,
+                                                                      @RequestBody AddressRequest addressRequest) {
+        return ResponseEntity.ok(
+                ApiResponse.success(addressService.updateAddress(addressRequest,id))
+        );
+    }
 }
