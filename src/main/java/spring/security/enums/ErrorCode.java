@@ -14,6 +14,7 @@ public enum ErrorCode {
     REFRESTOKEN_EXPIRED("AUTH_004","Token của bạn đã hết hạn",HttpStatus.UNAUTHORIZED),
     REFRESHTOKEN_NOT_FOUND("AUTH_005","Không tìm thấy refresh token",HttpStatus.UNAUTHORIZED),
     INVALID_REFRESH_TOKEN("AUTH_006","Refresh token không hợp lệ",HttpStatus.UNAUTHORIZED),
+    ADDRESS_NOT_FOUND("ADDRESS_001","Address không tồn tại",HttpStatus.NOT_FOUND),
     UNCATEGORIZED_EXCEPTION("SYS_999", "Lỗi hệ thống nội bộ, vui lòng thử lại sau", HttpStatus.INTERNAL_SERVER_ERROR);
 
     private final String code;

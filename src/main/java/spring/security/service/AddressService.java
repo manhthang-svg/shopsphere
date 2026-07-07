@@ -5,4 +5,6 @@ import spring.security.dto.response.AddressResponse;
 
 public interface AddressService {
     AddressResponse addNewAddress(AddressRequest req);
+
+    void markAddressAsDefault(Long id);
 }

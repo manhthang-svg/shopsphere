@@ -7,10 +7,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import spring.security.dto.request.AddressRequest;
 import spring.security.dto.response.AddressResponse;
 import spring.security.dto.response.ApiResponse;
@@ -37,4 +34,15 @@ public class AddressController {
                 ApiResponse.success(addressService.addNewAddress(addressRequest))
         );
     }
+    @Operation(
+            summary = "mark address default",
+            description = "set an address to default",
+            security = @SecurityRequirement(name = BEARER_AUTH_SCHEME)
+    )
+    @PutMapping("/{id}/default")
+    public ResponseEntity<ApiResponse<AddressResponse>> markDefault(@PathVariable long id) {
+        addressService.markAddressAsDefault(id);
+        return ResponseEntity.noContent().build();
+    }
+
 }

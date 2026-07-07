@@ -9,6 +9,7 @@ import spring.security.entity.Address;
 import spring.security.entity.Users;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface AddressRepository extends JpaRepository<Address,Long> {
@@ -22,4 +23,6 @@ public interface AddressRepository extends JpaRepository<Address,Long> {
        WHERE a.user = :user 
 """)
     int clearDefaultAddress(@Param("user") Users user);
+
+    Optional<Address> findAddressByUserAndId(Users user, Long id);
 }

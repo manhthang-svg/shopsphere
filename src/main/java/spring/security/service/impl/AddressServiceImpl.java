@@ -45,4 +45,16 @@ public class AddressServiceImpl implements AddressService {
         log.info("[ADD-ADDRESS] successfully added");
         return addressMapper.toAddressResponse(savedAddress);
     }
+    @Override
+    @Transactional
+    public void markAddressAsDefault(Long id){
+        String username = securityUtils.getCurrentUsername();
+        log.info("[MARK-DEFAULT] for username = {} with address id = {} ",username,id);
+        Users users = userRepository.findByUsername(username)
+                .orElseThrow(()-> new AppException(ErrorCode.USER_NOT_FOUND));
+        addressRepository.clearDefaultAddress(users);
+        Address address = addressRepository.findAddressByUserAndId(users,id)
+                .orElseThrow(() -> new AppException(ErrorCode.ADDRESS_NOT_FOUND));
+        address.setDefault(true);
+    }
 }
