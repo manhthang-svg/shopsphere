@@ -1,0 +1,16 @@
+1.OrphanRemoval
+- This is a setting in owner relationship(@ManyToOne, @OneToMany)
+- When deleting a child from a collection, hibernate will delete it from db
+but when orphanremoval = false, in case user id can be null , it will exist independently.Conversely,
+in case userId cannot be null , the transaction will throw exception and rollback.
+2.@Lock
+2.1 optimistic lock
+- use @Version in attribute
+- whenever the data was upddated, version will plus one
+2.2 optismistic_force_increment
+- use @version in attribute and @Lock in method
+- the version of data will plus one whenever its be read or upddated
+2.3 pessimistic_write
+- use @Lock(LockModeType.Pessimistic_write) in method
+- lock when the record was selected to updated or deleted,
+every request arrive latter need to wait until the lock transaction finished
