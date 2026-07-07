@@ -2,6 +2,7 @@ package spring.security.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import spring.security.dto.request.AddressRequest;
 import spring.security.dto.response.AddressResponse;
 import spring.security.entity.Address;
@@ -28,10 +29,16 @@ public class AddressServiceImpl implements AddressService {
         this.addressRepository = addressRepository;
     }
     @Override
+    @Transactional
     public AddressResponse addNewAddress(AddressRequest req){
         String username = securityUtils.getCurrentUsername();
         log.info("[ADD-ADDRESS] adding address = {} for user = {}",req.getRecipientName(),username);
         Users users = userRepository.findByUsername(username).orElseThrow(()-> new AppException(ErrorCode.USER_NOT_FOUND));
+        long count = addressRepository.countAddressByUser(users);
+        if (count == 0) req.setIsDefault(true);
+        if (count > 0 && req.getIsDefault()) {
+            addressRepository.clearDefaultAddress(users);
+        }
         Address newAddress = addressMapper.toAddress(req);
         newAddress.setUser(users);
         Address savedAddress = addressRepository.save(newAddress);
