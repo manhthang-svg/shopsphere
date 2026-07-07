@@ -57,4 +57,17 @@ public class AddressServiceImpl implements AddressService {
                 .orElseThrow(() -> new AppException(ErrorCode.ADDRESS_NOT_FOUND));
         address.setDefault(true);
     }
+    @Override
+    public AddressResponse updateAddress(AddressRequest request, long id) {
+        String username = securityUtils.getCurrentUsername();
+        log.info("[UPDATE-ADDRESS] for username = {} with address id = {} ",username,id);
+        Users users = userRepository.findByUsername(username)
+                .orElseThrow(()-> new AppException(ErrorCode.USER_NOT_FOUND));
+        Address address = addressRepository.findAddressById(id).
+                orElseThrow(()->new AppException(ErrorCode.ADDRESS_NOT_FOUND));
+        addressMapper.updateAddress(request,address);
+        addressRepository.save(address);
+
+    return addressMapper.toAddressResponse(address);
+    }
 }

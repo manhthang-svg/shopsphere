@@ -25,4 +25,6 @@ public interface AddressRepository extends JpaRepository<Address,Long> {
     int clearDefaultAddress(@Param("user") Users user);
 
     Optional<Address> findAddressByUserAndId(Users user, Long id);
+
+    Optional<Address> findAddressById(Long id);
 }
