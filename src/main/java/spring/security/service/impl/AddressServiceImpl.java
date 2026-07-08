@@ -70,4 +70,14 @@ public class AddressServiceImpl implements AddressService {
 
     return addressMapper.toAddressResponse(address);
     }
+    @Override
+    public void softDeleteAddress(long id) {
+        String username = securityUtils.getCurrentUsername();
+        log.info("[DELETE-ADDRESS] for username = {} with address id = {} ",username,id);
+        Users users = userRepository.findByUsername(username)
+                .orElseThrow(()-> new AppException(ErrorCode.USER_NOT_FOUND));
+        Address address = addressRepository.findAddressByUserAndId(users,id)
+                .orElseThrow(() -> new AppException(ErrorCode.ADDRESS_NOT_FOUND));
+        addressRepository.delete(address);
+    }
 }
