@@ -56,4 +56,14 @@ public class AddressController {
                 ApiResponse.success(addressService.updateAddress(addressRequest,id))
         );
     }
+    @Operation(
+            summary = "delete address",
+            description = "delete an address",
+            security = @SecurityRequirement(name = BEARER_AUTH_SCHEME)
+    )
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ApiResponse<?>> softDeleteAddress(@PathVariable long id) {
+        addressService.softDeleteAddress(id);
+        return ResponseEntity.noContent().build();
+    }
 }

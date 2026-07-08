@@ -14,3 +14,10 @@ in case userId cannot be null , the transaction will throw exception and rollbac
 - use @Lock(LockModeType.Pessimistic_write) in method
 - lock when the record was selected to updated or deleted,
 every request arrive latter need to wait until the lock transaction finished
+3.Soft delete
+3.1, @SoftDelete(columnName = , strategy = )
+- it use in hibernate 6.4 onward and replace for @SQLDeleted + @Where
+3.2, @SQLdelte( " ")
+- it will replace the delete sql by the sql was wrote in blanket
+3.3 @Where(clause = )
+- when ever use SELECT , the sql query will be concated with clause was wrote in blanked

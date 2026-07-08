@@ -9,4 +9,6 @@ public interface AddressService {
     void markAddressAsDefault(Long id);
 
     AddressResponse updateAddress(AddressRequest request, long id);
+
+    void softDeleteAddress(long id);
 }
