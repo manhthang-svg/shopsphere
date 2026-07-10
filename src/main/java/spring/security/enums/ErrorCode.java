@@ -15,6 +15,11 @@ public enum ErrorCode {
     REFRESHTOKEN_NOT_FOUND("AUTH_005","Không tìm thấy refresh token",HttpStatus.UNAUTHORIZED),
     INVALID_REFRESH_TOKEN("AUTH_006","Refresh token không hợp lệ",HttpStatus.UNAUTHORIZED),
     ADDRESS_NOT_FOUND("ADDRESS_001","Address không tồn tại",HttpStatus.NOT_FOUND),
+    CATEGORY_NOT_FOUND("CATEGORY_001","Category not found",HttpStatus.NOT_FOUND),
+    CATEGORY_ALREADY_EXISTS("CATEGORY_002","Category already exists",HttpStatus.BAD_REQUEST),
+    CATEGORY_PARENT_INVALID("CATEGORY_003","Category parent is invalid",HttpStatus.BAD_REQUEST),
+    BRAND_NOT_FOUND("BRAND_001","Brand not found",HttpStatus.NOT_FOUND),
+    BRAND_ALREADY_EXISTS("BRAND_002","Brand already exists",HttpStatus.BAD_REQUEST),
     UNCATEGORIZED_EXCEPTION("SYS_999", "Lỗi hệ thống nội bộ, vui lòng thử lại sau", HttpStatus.INTERNAL_SERVER_ERROR);
 
     private final String code;

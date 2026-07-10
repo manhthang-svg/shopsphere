@@ -34,6 +34,12 @@ public class SecurityConfig {
             "/api/auth/login",
             "/api/auth/register",
             "/api/auth/refresh-token",
+            "/api/categories",
+            "/api/categories/**",
+            "/api/brands",
+            "/categories",
+            "/categories/**",
+            "/brands"
     };
 
     private static final String[] SWAGGER_ENDPOINTS = {
@@ -52,6 +58,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(PUBLIC_ENDPOINTS).permitAll();
+                    auth.requestMatchers("/api/admin/**").hasRole("ADMIN");
+                    auth.requestMatchers("/admin/**").hasRole("ADMIN");
                     if (apiDocsEnabled || swaggerUiEnabled) {
                         auth.requestMatchers(SWAGGER_ENDPOINTS).permitAll();
                     }
