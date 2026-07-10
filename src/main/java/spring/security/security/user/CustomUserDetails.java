@@ -32,7 +32,7 @@ public class CustomUserDetails implements UserDetails {
 
         for (Roles role : this.users.getRoles()) {
             // 1. Thêm bản thân Role đó vào (ví dụ: ROLE_ADMIN)
-            authorities.add(new SimpleGrantedAuthority(role.getName()));
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
 
             // 2. Thêm tất cả các Permission thuộc Role đó vào (ví dụ: user:create)
             role.getPermissions().forEach(permission -> {
