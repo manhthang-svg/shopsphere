@@ -88,9 +88,9 @@ public class AuthServiceImpl implements AuthService {
         if(userRepository.existsByUsername(request.getUsername()))
             throw new AppException(ErrorCode.USER_ALREADY_EXISTS);
 
-        Roles userRole = roleRepository.findByName("USER")
+        Roles userRole = roleRepository.findByName("CUSTOMER")
                 .orElseThrow(() -> {
-                    log.error("[REGISTER] CRITICAL: Role 'USER' not found in database. Check migration V2.");
+                    log.error("[REGISTER] CRITICAL: Role 'CUSTOMER' not found in database. Check Flyway migrations.");
                     return new AppException(ErrorCode.ROLE_NOT_FOUND);
                 });
 
