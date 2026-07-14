@@ -16,5 +16,5 @@ public class ShopResponse {
     private String description;
     private String logoUrl;
     private ShopStatus status;
-    private Users owner;
+    private String ownerName;
 }
