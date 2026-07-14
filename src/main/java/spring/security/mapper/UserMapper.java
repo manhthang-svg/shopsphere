@@ -10,5 +10,6 @@ import spring.security.entity.Users;
 public interface UserMapper {
     UserResponse toUserResponse(Users users);
     @Mapping(target = "addresses", ignore = true)
+    @Mapping(target = "shops", ignore = true)
     UserProfileResponse toUserProfileResponse(Users users);
 }

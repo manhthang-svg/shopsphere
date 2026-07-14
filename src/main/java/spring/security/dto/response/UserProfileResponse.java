@@ -16,4 +16,5 @@ public class UserProfileResponse {
     private String username;
     private Instant createdAt;
     private List<AddressResponse> addresses;
+    private ShopResponse shops;
 }

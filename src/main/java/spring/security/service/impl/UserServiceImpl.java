@@ -3,14 +3,18 @@ package spring.security.service.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import spring.security.dto.response.AddressResponse;
+import spring.security.dto.response.ShopResponse;
 import spring.security.dto.response.UserProfileResponse;
 import spring.security.entity.Address;
+import spring.security.entity.Shop;
 import spring.security.entity.Users;
 import spring.security.enums.ErrorCode;
 import spring.security.exceptions.AppException;
 import spring.security.mapper.AddressMapper;
+import spring.security.mapper.ShopMapper;
 import spring.security.mapper.UserMapper;
 import spring.security.repository.AddressRepository;
+import spring.security.repository.ShopRepository;
 import spring.security.repository.UserRepository;
 import spring.security.service.UserService;
 import spring.security.utils.SecurityUtils;
@@ -25,12 +29,16 @@ public class UserServiceImpl implements UserService {
     private final AddressRepository addressRepository;
     private final AddressMapper addressMapper;
     private final SecurityUtils securityUtils;
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, AddressRepository addressRepository, AddressMapper addressMapper, SecurityUtils securityUtils) {
+    private final ShopRepository shopRepository;
+    private final ShopMapper shopMapper;
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper, AddressRepository addressRepository, AddressMapper addressMapper, SecurityUtils securityUtils, ShopRepository shopRepository, ShopMapper shopMapper) {
         this.userRepository = userRepository;
         this.userMapper = userMapper;
         this.addressRepository = addressRepository;
         this.addressMapper = addressMapper;
         this.securityUtils = securityUtils;
+        this.shopRepository = shopRepository;
+        this.shopMapper = shopMapper;
     }
     @Override
     public UserProfileResponse getProfile(){
@@ -41,8 +49,10 @@ public class UserServiceImpl implements UserService {
         UserProfileResponse userResponse = userMapper.toUserProfileResponse(users);
         List<Address> addresses = addressRepository.findByUserId(users.getId());
         List<AddressResponse> addressResponse = addressMapper.toAddressResponseList(addresses);
-
+        Shop shop = shopRepository.findByOwner(users);
+        ShopResponse shopResponse = shopMapper.toShopResponse(shop);
         userResponse.setAddresses(addressResponse);
+        userResponse.setShops(shopResponse);
         log.info("[Get-Profile] successfully getted");
         return userResponse;
     }

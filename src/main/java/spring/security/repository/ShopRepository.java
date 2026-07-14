@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface ShopRepository extends JpaRepository<Shop,Long> {
     boolean existsShopByOwner(Users owner);
+
+    Shop findByOwner(Users owner);
 }
