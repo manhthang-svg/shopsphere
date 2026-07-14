@@ -8,7 +8,9 @@ import spring.security.entity.Shop;
 
 @Mapper(componentModel = "spring")
 public interface ShopMapper {
+    @Mapping(source = "owner.username",target = "ownerName")
     ShopResponse toShopResponse(Shop shop);
+
     @Mapping(target = "owner",ignore = true)
     @Mapping(target = "status",ignore = true)
     Shop toShopEntity(ShopRequest shopRequest);

@@ -34,7 +34,7 @@ public class Users extends AbstractEntity{
     )
     private Set<Roles> roles = new HashSet<>();
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "owner", fetch = FetchType.LAZY)
     private Shop shop;
 
     @Builder.Default
