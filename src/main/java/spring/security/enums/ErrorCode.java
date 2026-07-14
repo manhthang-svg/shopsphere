@@ -20,6 +20,7 @@ public enum ErrorCode {
     CATEGORY_PARENT_INVALID("CATEGORY_003","Category parent is invalid",HttpStatus.BAD_REQUEST),
     BRAND_NOT_FOUND("BRAND_001","Brand not found",HttpStatus.NOT_FOUND),
     BRAND_ALREADY_EXISTS("BRAND_002","Brand already exists",HttpStatus.BAD_REQUEST),
+    ALREADY_OWN_A_SHOP("SHOP_001","You already own a shop",HttpStatus.BAD_REQUEST),
     UNCATEGORIZED_EXCEPTION("SYS_999", "Lỗi hệ thống nội bộ, vui lòng thử lại sau", HttpStatus.INTERNAL_SERVER_ERROR);
 
     private final String code;
